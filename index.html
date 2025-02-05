@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iZenPro Hitech Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .print-content {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-screen">
+        <img src="https://via.placeholder.com/350" alt="iZenPro Logo" class="w-[350px] h-[350px]">
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="hidden min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div class="text-center mb-8">
+                <i class="bi bi-person-circle text-6xl text-gray-600"></i>
+                <h2 class="text-2xl font-semibold mt-4 italic">Welcome to iZenPro Hitech Pro</h2>
+            </div>
+            <div class="p-[50px]">
+                <form id="loginForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="hidden">
+        <!-- Sidebar -->
+        <div class="flex">
+            <div class="fixed h-screen w-64 bg-gray-800 p-4">
+                <div class="text-white text-xl font-bold mb-8">iZenPro Hitech Pro</div>
+                <nav class="space-y-2">
+                    <a href="#dashboard" class="text-white block p-2 rounded hover:bg-gray-700">Dashboard</a>
+                    <div class="space-y-2 ml-4">
+                        <div class="text-gray-400">Sales</div>
+                        <a href="#b2b" class="text-white block p-2 rounded hover:bg-gray-700">B2B</a>
+                        <a href="#b2c" class="text-white block p-2 rounded hover:bg-gray-700">B2C</a>
+                    </div>
+                    <a href="#add-customer" class="text-white block p-2 rounded hover:bg-gray-700">Add Customer</a>
+                    <a href="#delivery-challan" class="text-white block p-2 rounded hover:bg-gray-700">Delivery Challan</a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="ml-64 p-8 w-full">
+                <!-- Different sections will be shown/hidden based on navigation -->
+                
+                <!-- Dashboard Section -->
+                <div id="dashboardSection" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Dashboard cards will be dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Add Customer Section -->
+                <div id="addCustomerSection" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4">Add Customer</h2>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <form id="customerForm" class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <input type="text" placeholder="GSTIN" class="flex-1 p-2 border rounded">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2"> Unregistered
+                                </label>
+                            </div>
+                            <input type="text" placeholder="Name" class="w-full p-2 border rounded">
+                            <textarea placeholder="Address" class="w-full p-2 border rounded"></textarea>
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="tel" placeholder="Mobile" class="p-2 border rounded">
+                                <input type="email" placeholder="Email" class="p-2 border rounded">
+                            </div>
+                            <select id="stateSelect" class="w-full p-2 border rounded">
+                                <!-- States will be populated dynamically -->
+                            </select>
+                            <input type="text" id="stateCode" readonly class="w-full p-2 border rounded bg-gray-100">
+                            <div class="flex space-x-4">
+                                <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded">Import from Excel</button>
+                                <button type="button" class="bg-green-600 text-white px-4 py-2 rounded">Download Format</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Delivery Challan Section -->
+                <div id="deliveryChallanSection" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4">Delivery Challan</h2>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="border-b mb-4">
+                            <div class="flex space-x-4">
+                                <button class="px-4 py-2 border-b-2 border-blue-600">DC</button>
+                                <button class="px-4 py-2">Items</button>
+                            </div>
+                        </div>
+                        
+                        <!-- DC Form -->
+                        <form id="dcForm" class="space-y-4">
+                            <select class="w-full p-2 border rounded" placeholder="Select Route">
+                                <!-- Routes will be populated dynamically -->
+                            </select>
+                            <select class="w-full p-2 border rounded" placeholder="Customer Name">
+                                <!-- Customers will be populated dynamically -->
+                            </select>
+                            <input type="text" placeholder="Vehicle/Transport" class="w-full p-2 border rounded">
+                            <input type="text" placeholder="Place of Supply" class="w-full p-2 border rounded">
+                            <input type="text" placeholder="Purchase Order" required class="w-full p-2 border rounded">
+                            <input type="date" class="w-full p-2 border rounded">
+                            
+                            <!-- Items Table -->
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="p-2">Item Name</th>
+                                            <th class="p-2">Barcode</th>
+                                            <th class="p-2">Sale Price</th>
+                                            <th class="p-2">Rate (Before GST)</th>
+                                            <th class="p-2">Quantity</th>
+                                            <th class="p-2">Discount</th>
+                                            <th class="p-2">MRP</th>
+                                            <th class="p-2">GST%</th>
+                                            <th class="p-2">Cess%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="itemsTable">
+                                        <!-- Items will be added dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <div class="text-xl font-bold">
+                                    Grand Total: ₹<span id="grandTotal">0.00</span>
+                                </div>
+                                <div class="space-x-2">
+                                    <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded">Print</button>
+                                    <button type="button" class="bg-green-600 text-white px-4 py-2 rounded">Duplicate</button>
+                                    <button type="button" class="bg-yellow-600 text-white px-4 py-2 rounded">Triplicate</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Splash screen logic
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('splashScreen').classList.add('hidden');
+                document.getElementById('loginPage').classList.remove('hidden');
+            }, 3000);
+        };
+
+        // Login form handling
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Add your authentication logic here
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+        });
+
+        // Navigation handling
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = e.target.getAttribute('href').substring(1);
+                document.querySelectorAll('[id$="Section"]').forEach(s => s.classList.add('hidden'));
+                document.getElementById(`${section}Section`)?.classList.remove('hidden');
+            });
+        });
+
+        // States data
+        const states = [
+            {name: 'Andhra Pradesh', code: '37'},
+            {name: 'Karnataka', code: '29'},
+            // Add all states here
+        ];
+
+        // Populate states dropdown
+        const stateSelect = document.getElementById('stateSelect');
+        states.forEach(state => {
+            const option = document.createElement('option');
+            option.value = state.code;
+            option.textContent = state.name;
+            stateSelect.appendChild(option);
+        });
+
+        // Update state code on state selection
+        stateSelect.addEventListener('change', (e) => {
+            document.getElementById('stateCode').value = e.target.value;
+        });
+
+        // Calculate grand total
+        function calculateGrandTotal() {
+            // Add calculation logic here
+        }
+
+        // Generate unique barcode
+        function generateBarcode() {
+            return 'BC' + Date.now();
+        }
+
+        // Add item to table
+        function addItem() {
+            const newRow = document.createElement('tr');
+            // Add cells with input fields
+            // Add event listeners for calculations
+        }
+
+        // Initialize first item row
+        addItem();
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
